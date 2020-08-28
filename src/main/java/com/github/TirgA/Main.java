@@ -1,6 +1,6 @@
 package com.github.TirgA;
 
-import com.github.TirgA.Token.Secret;
+import com.github.TirgA.Secret;
 import com.github.TirgA.Modes.FurryMode;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
