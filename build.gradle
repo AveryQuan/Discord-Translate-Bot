@@ -11,4 +11,5 @@ repositories {
 
 dependencies {
      implementation 'org.javacord:javacord:3.0.6'
+    implementation 'net.kautler:command-framework:0.3.0'
 }

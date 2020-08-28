@@ -1,25 +1,65 @@
 package com.github.TirgA;
 
+import com.github.TirgA.Modes.FurryMode;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
+import org.javacord.api.entity.channel.TextChannel;
+import org.javacord.api.entity.message.*;
+
+import java.util.Optional;
+
+import org.javacord.api.entity.message.embed.EmbedBuilder;
+
 
 public class Main {
 
     public static void main(String[] args) {
         // Insert your bot's token here
-        String token = "NzQ4MTMzMTYwMDA0MzU0MDk4.X0Y_TA.L9KqQZBZ-bNxHpHPqq1d_uU9pWM";
+        String token = Secret.returnToken();
 
         DiscordApi api = new DiscordApiBuilder().setToken(token).login().join();
 
-        // Add a listener which answers with "Pong!" if someone writes "!ping"
+
+        Optional<TextChannel> channel = api.getTextChannelById(Constants.BOT_CHANNEL);
+        // A text channel with the id 123 exists. It's safe to call #get() now
+        channel.ifPresent(textChannel -> textChannel.sendMessage("Hello this is the bot. type .help for more commands. okokok"));
+
+
         api.addMessageCreateListener(event -> {
-            if (event.getMessage().getContent().equalsIgnoreCase("!ping")) {
-                event.getChannel().sendMessage("ok!");
+            if (event.getMessageContent().equalsIgnoreCase(".help") ) {
+                if (event.getChannel().getIdAsString().equals(Constants.BOT_CHANNEL)) {
+                    //System.out.println(event.getChannel().getIdAsString());
+                    new MessageBuilder()
+                            //.append("Look at these ")
+                            //.append(" animal pictures! :smile:")
+                            //.appendCode("java", "System.out.println(\"Sweet!\");")
+                            .setEmbed(new EmbedBuilder()
+                                            .setImage("")
+                                            .setTitle("COMMANDS")
+                                            .addField(".help", "prints list of commands")
+                                    //.setDescription("Really cool pictures!")
+                            )
+                            //.setColor(Color.ORANGE))
+                            .send(event.getChannel());
+                }
+                else {
+                    new MessageBuilder()
+                            .setEmbed(new EmbedBuilder()
+                                    .setDescription("Use the Bot channel to command the bot")
+                            )
+                            .send(event.getChannel());
+                }
             }
         });
 
-        // Print the invite url of your bot
-        System.out.println("You can invite the bot by using the following url: " + api.createBotInvite());
+        api.addMessageCreateListener(event -> {
+            if (!event.getMessageAuthor().isBotUser()) {
+
+                event.editMessage(FurryMode.convertMsg(event.getMessageContent()));
+            }
+        });
+
+
     }
 
 }
