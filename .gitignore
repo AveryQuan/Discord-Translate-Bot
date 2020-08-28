@@ -3,4 +3,5 @@
 /build/
 /build/classes/java/main/
 
-java/Secret
+
+/src/main/java/com/github/TirgA/Token/
