@@ -10,6 +10,9 @@ repositories {
 }
 
 dependencies {
+
+    compile 'com.google.cloud:google-cloud-translate:1.95.2'
      implementation 'org.javacord:javacord:3.0.6'
     implementation 'net.kautler:command-framework:0.3.0'
+
 }
