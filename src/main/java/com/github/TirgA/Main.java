@@ -10,40 +10,49 @@ import org.javacord.api.entity.message.*;
 import java.util.Optional;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
+import com.google.cloud.translate.*;
 
 
 public class Main {
 
     public static void main(String[] args) {
         // Insert your bot's token here
-        String token = Secret.returnToken();
+        String token = Secret.TOKEN;
+        System.setProperty("GOOGLE_API_KEY", Secret.GOOGLE_API_KEY);
+
+         //Translate translate = TranslateOptions.getDefaultInstance().getService();
+        //Translation translation = translate.translate("JE veux aller la \n" +
+                //"ห้องสมุด!");
+        //System.out.printf("Translated Text:\n\t%s\n", translation.getTranslatedText());
+
+        try {
+            String str = new String("سلام".getBytes(), "UTF-8");
+        }
+        catch (Exception e) {
+            System.out.println("Something went wrong.");
+        }
 
         DiscordApi api = new DiscordApiBuilder().setToken(token).login().join();
 
-
-        Optional<TextChannel> channel = api.getTextChannelById(Constants.BOT_CHANNEL);
-        // A text channel with the id 123 exists. It's safe to call #get() now
-        channel.ifPresent(textChannel -> textChannel.sendMessage("Hello this is the bot. type .help for more commands. okokok"));
+        // check if channel exists
+        Optional<TextChannel> channel = api.getTextChannelById(Secret.BOT_CHANNEL);
+        channel.ifPresent(textChannel -> textChannel.sendMessage("Hello I am a Language bot. \n type \".help\" for more commands."));
 
 
         api.addMessageCreateListener(event -> {
             if (event.getMessageContent().equalsIgnoreCase(".help") ) {
-                if (event.getChannel().getIdAsString().equals(Constants.BOT_CHANNEL)) {
-                    //System.out.println(event.getChannel().getIdAsString());
+                if (event.getChannel().getIdAsString().equals(Secret.BOT_CHANNEL)) {
                     new MessageBuilder()
-                            //.append("Look at these ")
-                            //.append(" animal pictures! :smile:")
-                            //.appendCode("java", "System.out.println(\"Sweet!\");")
+
                             .setEmbed(new EmbedBuilder()
                                             .setImage("")
                                             .setTitle("COMMANDS")
                                             .addField(".help", "prints list of commands")
-                                    //.setDescription("Really cool pictures!")
                             )
-                            //.setColor(Color.ORANGE))
                             .send(event.getChannel());
                 }
                 else {
+
                     new MessageBuilder()
                             .setEmbed(new EmbedBuilder()
                                     .setDescription("Use the Bot channel to command the bot")
