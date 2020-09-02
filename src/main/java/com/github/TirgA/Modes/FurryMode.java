@@ -1,6 +1,7 @@
 package com.github.TirgA.Modes;
 import java.util.Random;
 
+// This class is for fun
 public class FurryMode {
 
     private static String[] endings = {"\n ~nya <3 \n", " ^OWO^ \n", " uwu \n"};
@@ -33,13 +34,14 @@ public class FurryMode {
         return temp;
     }
 
+
     private static boolean isVowel(char c) {
         return "AEIOUaeiou".indexOf(c) != -1;
     }
 
     private static String addEnding() {
         Random generator = new Random();
-        int num = generator.nextInt(2);
+        int num = generator.nextInt(4);
         String ending = "" ;
         if (1 == num) {
             num = generator.nextInt(endings.length);
@@ -47,6 +49,7 @@ public class FurryMode {
         }
 
         return ending;
+
     }
 
 
