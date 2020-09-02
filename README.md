@@ -29,6 +29,6 @@ Copy and paste the code below and replace the constant values
         });
 
 
-Invite your bot to your discord server using the link given. Make sure to replace <client-id> with your bots client id.
+Invite your bot to your discord server using the link given. Make sure to replace CLIENTID with your bots client id.
 
-   https://discordapp.com/oauth2/authorize?&client_id=<CLIENT ID>&scope=bot&permissions=8
+   https://discordapp.com/oauth2/authorize?&client_id=CLIENTID&scope=bot&permissions=8
